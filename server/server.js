@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import morgan from 'morgan';
 
+
 dotenv.config();
 
 const url = process.env.MONGO_DB_URL;
