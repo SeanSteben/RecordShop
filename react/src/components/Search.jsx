@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 
 const Search = (props) => {
     const [searchTerm, setSearchTerm] = useState('');
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
-        // fetch(`${import.meta.env.MONGO_DB_URL}/search`, {
-        fetch('http://localhost:3000/search', {
+        fetch(`http://localhost:3000/search?q=${searchTerm}`, {
             method: "POST",
             body: JSON.stringify({ searchTerm }),
             headers: {
@@ -16,6 +15,7 @@ const Search = (props) => {
             .then((response) => response.json())
             .then((data) => {
                 // Handle the response data
+                props.setRecordData(data);
                 console.log(data);
             })
             .catch((error) => {

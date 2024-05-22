@@ -56,9 +56,9 @@ app.get('/search/:genre', async (req, res) => {
     }
 });
 
-app.get('/search', async (req, res) => {
+app.post('/search', async (req, res) => {
     // Searches based on user input matching album_name or band_name.
-    // ex. http://localhost:3000/records/search?q=Hello+World
+    // ex. http://localhost:3000/search?q=Hello+World
     try {
         const search_params = req.query.q;
         const collection = db.collection('records');

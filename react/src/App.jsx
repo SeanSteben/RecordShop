@@ -11,8 +11,31 @@ import Featured from './components/Featured';
 
 let filtered_records = [];
 function App() {
-  const [recordData, setRecordData] = useState([]);
+ const [recordData, setRecordData] = useState([]);
+ const [currentGenre, setCurrentGenre] = useState([]);
+ 
+ 
   
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/search/:genre');
+        if (!response.ok) {
+          throw new Error('Data could not be fetched!');
+        }
+        const json_response = await response.json();
+
+       
+        setRecordData(json_response); // assign JSON response to the data variable.
+
+      } catch (error) {
+        console.error('Error fetching records:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -34,6 +57,9 @@ function App() {
 
     fetchData();
   }, []);
+
+  
+  
 
   return (
     <>
@@ -77,7 +103,7 @@ function App() {
               </li>
             </ul>
 
-            <Search />
+            <Search setRecordData={setRecordData} />
 
             <form className="d-flex" role="shoppingCart">
               <button className="btn btn-outline-success" type="submit">Shopping Cart</button>
