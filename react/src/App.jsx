@@ -7,7 +7,13 @@ import "bootstrap/dist/js/bootstrap.js";
 import Record from "./components/Record"
 import Search from "./components/Search"
 import Featured from './components/Featured';
-
+import RecordDetails from "./components/RecordDetails"
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link
+} from "react-router-dom";
 
 let filtered_records = [];
 function App() {
@@ -37,6 +43,11 @@ function App() {
 
   return (
     <>
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Home/>}/>
+        <Route path="/records/:id" element={<RecordDetails/>}/>
+      </Routes>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">Record Breakers</a>
@@ -95,6 +106,7 @@ function App() {
               {recordData.map((record) => (
                 <Record key={record._id} recordData={record} />
 
+
               ))}
               {/* {
                 // Change from static sock_data to data coming from sock API
@@ -108,6 +120,7 @@ function App() {
           </div>
         </div>
       </main>
+    </Router>
     </>
   )
 }
