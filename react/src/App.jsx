@@ -7,6 +7,8 @@ import "bootstrap/dist/js/bootstrap.js";
 import Record from "./components/Record"
 import recordTest_data from "./assets/recordTest.json"
 import Search from "./components/Search"
+import Featured from './components/Featured';
+import featured_data from "./assets/featured.json";
 
 function App() {
 
@@ -63,19 +65,16 @@ function App() {
       <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-md-4">
 
         <div className="container-fluid">
+        <Featured data={featured_data} />
           <div className="row">
-            Both socks and space rockets 🚀 will take you to new heights, but only one will get cold feet!
+      
             <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
               {recordTest_data.map((record) => (
                 <Record key={record.id} data={record} />
 
               ))}
 
-              {/* {
-                sock_data.map((sock) => (
-                  <Sock key={sock.id} data={sock} />
-                ))
-              } */}
+             
             </div>
           </div>
         </div>
