@@ -88,54 +88,66 @@ app.get('/cart', async (req, res) => {
 
 app.post('/cart/add', async (req, res) => {
     try {
-        const record = req.body;
-        const collection = db.collection('orders');
-        const result = await collection.insertOne(record);
-        res.status(201).send(`{"_id": "${result.insertedId}"}`);
+       const record = req.body; 
+       const collection = db.collection('orders');
+       const result = await collection.insertOne(record);
+       res.status(201).send(`{"_id":"${result.insertedId}"}`);
     } catch (err) { 
         console.error('Error:', err);
         res.status(500).send('Error in adding record!');
     }
 });
 
-app.delete('/cart/delete/:id', async (req, res) => {
-    try {
-        const id = req.params.id;
-        const collection = db.collection('orders');
-        const result = await collection.deleteOne({_id: new ObjectId(id)});
-        if (result.deletedCount === 1) { 
-            res.status(200).send(`Successfully deleted record with ID: ${id}`);
-        }
-        else { 
-            res.status(404).send(`Could not find record with ID: ${id}`);
-        }
-    } catch (err) {
-        console.error('Error:', err);
-        res.status(500).send('Error in deleting record!');
-    }
-});
+// app.delete('/cart/delete/:id', async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const collection = db.collection('orders')
+//         console.log('Deleting record with ID:', id);
+//         const result = await collection.deleteOne({_id: new ObjectId(id)});
+//         if (result.deletedCount === 1) { 
+//             res.status(200).send(`Successfully deleted record with ID: ${id}`);
+//         }
+//         else { 
+//             res.status(404).send(`Could not find record with ID: ${id}`);
+//         }
+//         res.status(200).send('record deleted successfully');
+//     } catch (err) {
+//         console.error('Error:', err);
+//         res.status(500).send('Hmm, something doesn\'t smell right... Error deleting sock');
+//     }
+// });
 
-app.post("/checkout", async (req, res) => {
-    // From documentation: 
-    // When the user is finished shopping, the checkout
-    // view will show them all the products in their cart,
-    // an order total, and a place for them to put their
-    // payment and shipping info. When they checkout, their cart
-    // is cleared, and the order is saved to the database.
+// app.post("/checkout/:id", async (req, res) => {
+//     // From documentation: 
+//     // When the user is finished shopping, the checkout
+//     // view will show them all the products in their cart,
+//     // an order total, and a place for them to put their
+//     // payment and shipping info. When they checkout, their cart
+//     // is cleared, and the order is saved to the database.
 
 
-    // In request body, take in list of products from cart, order total (accumulated)
-    // and user input for payment info(?) and shipping information.
-    try {
-        const order = req.body;
-        const collection = db.collection('orders');
-        const result = await collection.insertOne(order);
-        res.status(201).send(`{"_id": "${result.insertedId}"}`);
-    } catch (err) { 
-        console.error('Error:', err);
-        res.status(500).send('Error in adding order!');
-    }
-});
+//     // In request body, take in list of products from cart, order total (accumulated)
+//     // and user input for payment info(?) and shipping information.
+//     try {
+//         const {name, address} = req.body;
+//         const collection = db.collection('orders');
+//         const result = await collection.updateOne(
+//             {_id: id},
+//             {$set: {name, address}}
+//         );
+
+//         console.log(new ObjectId(Number(id)))
+//         if (result.modifiedCount == 0) { 
+//             res.status(500).send('Could not add order to database!')
+//         }
+//         else {
+//             res.status(201).send(`{"_id": "${result.upsertedId}"}`);
+//         }
+//     } catch (err) { 
+//         console.error('Error:', err);
+//         res.status(500).send('Error in adding order!');
+//     }
+// });
 
 ////
 app.listen(PORT, () => {
