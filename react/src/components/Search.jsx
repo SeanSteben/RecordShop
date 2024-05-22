@@ -5,7 +5,8 @@ const Search = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch(`${import.meta.env.VITE_SOCKS_API_URL}/search`, {
+        // fetch(`${import.meta.env.MONGO_DB_URL}/search`, {
+        fetch('http://localhost:3000/search', {
             method: "POST",
             body: JSON.stringify({ searchTerm }),
             headers: {
@@ -15,7 +16,6 @@ const Search = (props) => {
             .then((response) => response.json())
             .then((data) => {
                 // Handle the response data
-                props.setData(data);
                 console.log(data);
             })
             .catch((error) => {
@@ -26,7 +26,7 @@ const Search = (props) => {
 
     const handleChange = (e) => {
         setSearchTerm(e.target.value);
-        console.log(`Search Tearm:  ${searchTerm}`);
+        console.log(searchTerm);
     };
 
     return (
