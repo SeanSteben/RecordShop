@@ -1,0 +1,45 @@
+[{
+    "id": 100,
+    "band_name": "Monster of Drama",
+    "album_name": "Devils advocate",
+    "genre": "Classical",
+    "release_date": "2017-07-10",
+    "record_label": "Camacho Group",
+    "duration": "86:51",
+    "price": "16.00",
+    "numSold": 27
+  },
+  {
+    "id": 109,
+    "band_name": "Torment of Wit",
+    "album_name": "Grains of sand",
+    "genre": "Hip Hop",
+    "release_date": "2012-08-16",
+    "record_label": "Flynn, Garcia and Kelly",
+    "duration": "46:08",
+    "price": "18.00",
+    "numSold": 34
+  },
+  {
+    "id": 110,
+    "band_name": "Cinematic Gossip",
+    "album_name": "Crazy eyes",
+    "genre": "Hip Hop",
+    "release_date": "2004-09-04",
+    "record_label": "Martin, Blanchard and Franco",
+    "duration": "87:47",
+    "price": "19.00",
+    "numSold": 81
+  },
+  {
+    "id": 111,
+    "band_name": "Bittersweet",
+    "album_name": "Army of ants",
+    "genre": "Country",
+    "release_date": "1974-07-17",
+    "record_label": "Johnson-Moran",
+    "duration": "53:48",
+    "price": "25.00",
+    "numSold": 61
+  }
+]

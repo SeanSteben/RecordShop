@@ -5,11 +5,9 @@ import cors from 'cors';
 
 dotenv.config();
 const url = process.env.MONGO_DB_URL;
-//const url = 'mongodb://localhost:27017/';
 const dbName = process.env.MONGO_DB;
-//const dbName = 'breaking_records';
-//const PORT = process.env.PORT;
-const PORT = 3000; 
+const PORT = process.env.PORT;
+
 
 const client = await MongoClient.connect(url);
 const db = client.db(dbName);
