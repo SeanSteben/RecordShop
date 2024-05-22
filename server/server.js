@@ -21,16 +21,11 @@ app.use(cors());
 app.use(express.json());
 
 
-
->>>>>>> 72d28a908445b4cace9d7d8a64d7b2f8026ec794
-
 app.get('/', (req, res) => {
     res.send('welcome to the record shop!')
 });
 
-<<<<<<< HEAD
 // Figure out what routes to include for records.
-
 app.get('/search', (req, res) => { 
     res.status(200).send('placeholder, sends matching products')
 });
@@ -57,7 +52,7 @@ app.post("/checkout", (req, res)=> {
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
-=======
+
 app.get('/allrecords', async (req, res) => {
     try {
         const collection = db.collection('records');
@@ -71,4 +66,3 @@ app.get('/allrecords', async (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
->>>>>>> 72d28a908445b4cace9d7d8a64d7b2f8026ec794
