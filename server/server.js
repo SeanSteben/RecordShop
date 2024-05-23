@@ -5,7 +5,6 @@ import cors from 'cors';
 import morgan from 'morgan';
 import session from 'express-session';
 
-// for test commit
 dotenv.config();
 
 const url = process.env.MONGO_DB_URL;
@@ -95,15 +94,13 @@ app.get('/cart', async (req, res) => {
     }
 });
 
-app.post('/cart/add/:productId', async (req, res) => {
+app.post('/cart/add', async (req, res) => {
     try {
-        const { productId } = req.params;
-
         if (!req.session.shopping_cart) {
             req.session.shopping_cart = [];
         }
 
-        req.session.shopping_cart.push(productId);
+        req.session.shopping_cart.push(req.body);
 
         res.status(201).send(`Successfully added product to shopping cart!`);
     } catch (err) {
@@ -112,11 +109,9 @@ app.post('/cart/add/:productId', async (req, res) => {
     }
 });
 
-app.delete('/cart/delete/:productId', async (req, res) => {
+app.delete('/cart/delete', async (req, res) => {
     try {
-        const { productId } = req.params;
-        console.log('Deleting record with ID:', productId);
-        req.session.shopping_cart = req.session.shopping_cart.filter(id  => id !== productId)
+        req.session.shopping_cart = req.session.shopping_cart.filter(product  => JSON.stringify(product) !== JSON.stringify(req.body))
         res.status(200).send('record deleted successfully from shopping cart!');
     } catch (err) {
         console.error('Error:', err);
