@@ -1,11 +1,12 @@
-import react, {useState, useEffect} from 'react';
+import react, { useState, useEffect } from 'react';
+import Record from "./Record";
 import {
     useParams,
 } from 'react-router-dom';
-//follow home component to display results
-const Category = () => { 
+
+const Category = () => {
     let { genre } = useParams();
-    const [records, setRecords] = useState([])
+    const [recordData, setRecords] = useState([])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,9 +26,20 @@ const Category = () => {
 
     return (
         <>
-            <h1>Genre: {genre}</h1>
-            <p>{JSON.stringify(records)}</p>
-        </>   
+            <h3>{genre.charAt(0).toUpperCase() + genre.slice(1)} Records:</h3>
+            <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+                            {recordData.map((record) => (
+                                <Record key={record._id} recordData={record} />
+                            ))}
+
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </>
     );
 }
 
