@@ -7,6 +7,7 @@ import Category from "./components/Category"
 import RecordDetails from "./components/RecordDetails"
 import Home from "./components/Home"
 import Cart from "./components/Cart";
+import Checkout from "./components/Checkout"
 import {
   BrowserRouter as Router,
   Route,
@@ -106,6 +107,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/search" element={<Search data={searchData} />} />
           <Route path="/category/:genre" element={<Category />} />
+          <Route path="/checkout/:total" element={<Checkout />}/>
         </Routes>
       </Router>
     </>

@@ -146,7 +146,7 @@ app.post('/cart/checkout', async (req, res) => {
 
         cart = [];
         await collection.insertOne(order_document).then(() => { 
-            req.session.shopping_cart = [];
+            cart = [];
         });
 
         res.status(201).send('Sent order to MongoDB database!')
