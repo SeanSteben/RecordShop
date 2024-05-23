@@ -91,7 +91,7 @@ const Cart = () => {
                     Prediction: {prediction}
                 </div>
             )}
-            <Link to="/checkout">
+            <Link to={"/checkout/"+total}>
                 <button className="btn btn-outline-success" type="submit" >Proceed to Checkout</button>
             </Link>
         </>

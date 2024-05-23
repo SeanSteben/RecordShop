@@ -3,6 +3,7 @@ import ANewRecord from "./ANewRecord";
 const Featured = (props) => {
     return (
         <>
+            {JSON.stringify()}
             <h5>Just added to Record Store</h5>
             <div className="card-container d-flex flex-row justify-content-start" style={{ gap: "20px", padding: "20px" }}>
                 {

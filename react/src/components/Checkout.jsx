@@ -17,7 +17,6 @@ const Checkout = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        // // const { name, value } = <a href="https://urldefense.com/v3/__http://e.target__;!!NT4GcUJTZV9haA!qoo-cwS4tb35uUVAevDuLxQ_tgm8QqHkzWYvskJ1CjPvincEqX75AVRNxTmWd1PE9wF3GijzG5kPAKKSUqg$">e.target</a>;
         setFormData({
             ...formData,
             [name]: value
@@ -54,9 +53,6 @@ const Checkout = () => {
     return (
         <>
             <h2>Checkout</h2>
-
-            <h3>Cart</h3>
-
             <form onSubmit={handleSubmit}>
             <h4 className="mb-3">User & Shipping Information</h4>
             <div className="row">
