@@ -16,29 +16,34 @@ with open('preprocessor.pkl', 'rb') as file:
 def predict():
     # Get the request data
     
-    data = request.get_json(force=True)
+    data = request.get_json(force=True)#cconatins everything that has been 
     next_album = pd.DataFrame({
-    'genre': ['Jazz'],
-    'band_name' : ['Dilemma'],
-    'num_sold': [45]
-    display(data)
+    'genre': [data["genre"]],
+    'band_name' :[data["band_name"]],
+    'num_sold': [data["num_sold"]]
+    })
+#     next_album = pd.DataFrame({
+#     'genre': ['Jazz'],
+#     'band_name' : ['Dilemma'],
+#     'num_sold': [45]
     
-})
-    
+# })
+
+    print( data)
     #FIGURE OUT FROM DATA VARIABLE find structure od data
 
      # Ensure the data is a list (even if it's just one dictionary)
-    if isinstance(data, dict):
-        data = [data]
+    # if isinstance(next_album, dict):
+    #     next_album = [next_album]
 
     #from jupyter 
-    prediction_encoded = unpickled_preprocessor.transform(next_album)
-    print(prediction_encoded)
-    # Make a prediction
-    #prediction = model.predict(pd.DataFrame(prediction_encoded))
+    next_album_encoded = unpickled_preprocessor.transform(next_album)
+
+    predicted = model.predict(next_album_encoded)
+    print("Reccomended album for you is: ", predicted[0])
 
     # Return the prediction
-    return jsonify({})
+    return jsonify(predicted.tolist())
 
 if __name__ == '__main__':
     app.run(port=5000)

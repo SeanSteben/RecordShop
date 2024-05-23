@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Cart = () => {
     const [cart, setCart] = useState([])
+    const [prediction, setPrediction] = useState(null);
     let total = 0.00
     useEffect(() => {
         const fetchData = async () => {
@@ -41,6 +42,24 @@ const Cart = () => {
                 console.error(error);
             });
     }
+    const predict = async (record) =>{
+        try{
+            const response = await fetch('http://localhost:5000/api/predict' , {
+                method: 'POST',
+                headers:{
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(record),
+            });
+            if (!response.ok){
+                throw new Error('Prediction request failed!!!')
+            }
+            const jsonResponse = await response.json();
+            setPrediction(jsonResponse.prediction); //might have to be changed
+        } catch(error){
+            console.error('Something went WRONG:', error)
+        }
+    }
 
     return (
         <>
@@ -68,6 +87,11 @@ const Cart = () => {
                 {cart.forEach(cartItem => total += parseFloat(cartItem.price))}
                 <div>Total Price: ${total.toFixed(2)}</div>
             </div>
+            {prediction && (
+                <div className = "alert alert-info">
+                    Prediction: {prediction}
+                </div>
+            )}
             <Link to="/checkout">
                 <button className="btn btn-outline-success" type="submit" >Proceed to Checkout</button>
             </Link>

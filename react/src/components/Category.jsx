@@ -2,7 +2,7 @@ import react, {useState, useEffect} from 'react';
 import {
     useParams,
 } from 'react-router-dom';
-
+//follow home component to display results
 const Category = () => { 
     let { genre } = useParams();
     const [records, setRecords] = useState([])
