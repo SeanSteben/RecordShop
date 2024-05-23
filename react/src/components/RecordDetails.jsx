@@ -24,8 +24,8 @@ export default function RecordDetails(props) {
     }, []);
 
     return (
-        <>
+        <div>
             <h1 id="name">{record.album_name}</h1>
-        </>
+        </div>
     )
 }
