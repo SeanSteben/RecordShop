@@ -5,13 +5,15 @@ import "bootstrap/dist/js/bootstrap.js";
 import Search from "./components/Search"
 import RecordDetails from "./components/RecordDetails"
 import Home from "./components/Home"
+import Cart from "./components/Cart";
 import {
   BrowserRouter as Router,
   Route,
   Routes,
+  Link
 } from "react-router-dom";
 
-let filtered_records = [];
+
 function App() {
   return (
     <>
@@ -53,15 +55,19 @@ function App() {
                 </li>
               </ul>
               <Search />
+              <Link  to="/cart">
               <form className="d-flex" role="shoppingCart">
                 <button className="btn btn-outline-success" type="submit">Shopping Cart</button>
               </form>
+              </Link>
+             
             </div>
           </div>
         </nav>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/records/:id" element={<RecordDetails />} />
+          <Route path= "/cart" element ={<Cart/>} />
         </Routes>
       </Router>
     </>
