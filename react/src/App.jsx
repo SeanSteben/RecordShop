@@ -17,36 +17,12 @@ import {
 
 
 function App() {
-  const [searchData, setSearchData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-
-  const handleSubmit = (e) => {
-    console.log('submitted')
-    e.preventDefault();
-    console.log(`search term ${searchTerm}`)
-    fetch(`http://localhost:3000/search?q=${new URLSearchParams(searchTerm)}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response data
-        setSearchData(data);
-        console.log(data);
-      })
-      .catch((error) => {
-        // Handle any errors
-        console.error(error);
-      });
-  };
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
     console.log(searchTerm);
   };
-
 
   return (
     <>
@@ -78,17 +54,14 @@ function App() {
                     <li><Link className="nav-link" to="/category/reggae"><a className="dropdown-item">Reggae</a></Link></li>
                     <li><Link className="nav-link" to="/category/blues"><a className="dropdown-item">Blues</a></Link></li>
                     <li><Link className="nav-link" to="/category/folk"><a className="dropdown-item">Folk</a></Link></li>
-
-                    {/* <li><hr className="dropdown-divider" /></li>
-                  <li><a className="dropdown-item" href="#">Something else here</a></li> */}
                   </ul>
                 </li>
               </ul>
-                <form className="d-flex" role="search" onSubmit={handleSubmit}>
+                <form className="d-flex" role="search">
                   <input className="form-control me-2" type="search"
                     placeholder="Search" aria-label="Search"
                     value={searchTerm} onChange={handleChange} />
-                    <Link to="/search">
+                    <Link to={"/search/"+searchTerm}>
                       <button className="btn btn-outline-success" type="submit">Search</button>
                     </Link>
                 </form>
@@ -105,7 +78,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route path="/records/:id" element={<RecordDetails />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/search" element={<Search data={searchData} />} />
+          <Route path="/search/:term" element={<Search />} />
           <Route path="/category/:genre" element={<Category />} />
           <Route path="/checkout/:total" element={<Checkout />}/>
         </Routes>

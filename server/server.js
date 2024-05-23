@@ -67,7 +67,6 @@ app.post('/search', async (req, res) => {
     // Searches based on user input matching album_name or band_name.
     // ex. http://localhost:3000/search?q=Hello+World
     try {
-        console.log('hit search route')
         const search_params = req.query.q;
         const collection = db.collection('records');
         const matching_records = await collection.find(
