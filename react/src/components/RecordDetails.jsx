@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import recordImage from '../assets/record.png'
 import {
     useParams,
+    Link
 } from "react-router-dom";
 
 
@@ -12,7 +14,7 @@ export default function RecordDetails(props) {
             try {
                 const response = await fetch(`http://localhost:3000/records/${id}`);
                 if (!response.ok) {
-                  throw new Error('Data could not be fetched!');
+                    throw new Error('Data could not be fetched!');
                 }
                 const json_response = await response.json();
                 setRecord(json_response); // assign JSON response to the data variable.
