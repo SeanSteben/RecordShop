@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import pickle
 import pandas as pd
 
-app = Flask(__name__)
 
+app = Flask(__name__)
+CORS(app)
 # Load the model from disk
 with open('model_pipeline.pkl', 'rb') as file:
     model = pickle.load(file)
@@ -20,7 +22,7 @@ def predict():
     next_album = pd.DataFrame({
     'genre': [data["genre"]],
     'band_name' :[data["band_name"]],
-    'num_sold': [data["num_sold"]]
+    'num_sold': [45]
     })
 #     next_album = pd.DataFrame({
 #     'genre': ['Jazz'],
@@ -29,12 +31,12 @@ def predict():
     
 # })
 
-    print( data)
+    #print( data)
     #FIGURE OUT FROM DATA VARIABLE find structure od data
 
      # Ensure the data is a list (even if it's just one dictionary)
-    # if isinstance(next_album, dict):
-    #     next_album = [next_album]
+    if isinstance(next_album, dict):
+        next_album = [next_album]
 
     #from jupyter 
     next_album_encoded = unpickled_preprocessor.transform(next_album)
