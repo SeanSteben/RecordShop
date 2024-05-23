@@ -31,13 +31,13 @@ export default function RecordDetails(props) {
     }
 
     return (
-        <div className="card mb-3" style={{maxWidth: "800px"}}>
+        <div className="card shadow mb-3" style={{maxWidth: "800px", backgroundColor: "#f0f0f0"}}>
             <div className="row g-0">
                 <div className="col-md-4">
                     <img src={recordImage} className="img-fluid" />
                 </div>
                 <div className="col-md-8">
-                    <div class="card-body">
+                    <div className="card-body">
                         <h3 className="card-title" style={{textTransform: "uppercase"}}><strong>{record.album_name}</strong></h3>
                         <h4 className="card-text">{record.band_name}</h4>
                         <p className="card-text"><small className="text-muted">{record.release_date}</small></p>
