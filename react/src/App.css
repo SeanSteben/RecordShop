@@ -3,6 +3,10 @@ root {
   margin: 0 auto;
 }
 
+* { 
+  font-family: 'Trebuchet MS';
+}
+
 .card {
   padding: 1em;
 }

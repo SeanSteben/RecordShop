@@ -3,6 +3,7 @@ import './App.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.js";
 import Search from "./components/Search"
+import Category from "./components/Category"
 import RecordDetails from "./components/RecordDetails"
 import Home from "./components/Home"
 import Cart from "./components/Cart";
@@ -15,6 +16,37 @@ import {
 
 
 function App() {
+  const [searchData, setSearchData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSubmit = (e) => {
+    console.log('submitted')
+    e.preventDefault();
+    console.log(`search term ${searchTerm}`)
+    fetch(`http://localhost:3000/search?q=${new URLSearchParams(searchTerm)}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response data
+        setSearchData(data);
+        console.log(data);
+      })
+      .catch((error) => {
+        // Handle any errors
+        console.error(error);
+      });
+  };
+
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+    console.log(searchTerm);
+  };
+
+
   return (
     <>
       <Router>
@@ -36,36 +68,44 @@ function App() {
                   </a>
                   <ul className="dropdown-menu">
 
-                    <li><a className="dropdown-item" href="#">Pop</a></li>
-                    <li><a className="dropdown-item" href="#">Rock</a></li>
-                    <li><a className="dropdown-item" href="#">Jazz</a></li>
-                    <li><a className="dropdown-item" href="#">Classical</a></li>
-                    <li><a className="dropdown-item" href="#">Hip Hop</a></li>
-                    <li><a className="dropdown-item" href="#">Country</a></li>
-                    <li><a className="dropdown-item" href="#">Reggae</a></li>
-                    <li><a className="dropdown-item" href="#">Blues</a></li>
-                    <li><a className="dropdown-item" href="#">Folk</a></li>
-
+                    <li><Link className="nav-link" to="/category/pop"><a className="dropdown-item">Pop</a></Link></li>
+                    <li><Link className="nav-link" to="/category/rock"><a className="dropdown-item">Rock</a></Link></li>
+                    <li><Link className="nav-link" to="/category/jazz"><a className="dropdown-item">Jazz</a></Link></li>
+                    <li><Link className="nav-link" to="/category/classical"><a className="dropdown-item">Classical</a></Link></li>
+                    <li><Link className="nav-link" to="/category/hip+hop"><a className="dropdown-item">Hip Hop</a></Link></li>
+                    <li><Link className="nav-link" to="/category/country"><a className="dropdown-item">Country</a></Link></li>
+                    <li><Link className="nav-link" to="/category/reggae"><a className="dropdown-item">Reggae</a></Link></li>
+                    <li><Link className="nav-link" to="/category/blues"><a className="dropdown-item">Blues</a></Link></li>
+                    <li><Link className="nav-link" to="/category/folk"><a className="dropdown-item">Folk</a></Link></li>
 
                     {/* <li><hr className="dropdown-divider" /></li>
                   <li><a className="dropdown-item" href="#">Something else here</a></li> */}
                   </ul>
                 </li>
               </ul>
-              <Search />
-              <Link  to="/cart">
-              <form className="d-flex" role="shoppingCart">
-                <button className="btn btn-outline-success" type="submit">Shopping Cart</button>
-              </form>
+                <form className="d-flex" role="search" onSubmit={handleSubmit}>
+                  <input className="form-control me-2" type="search"
+                    placeholder="Search" aria-label="Search"
+                    value={searchTerm} onChange={handleChange} />
+                    <Link to="/search">
+                      <button className="btn btn-outline-success" type="submit">Search</button>
+                    </Link>
+                </form>
+              <Link to="/cart">
+                <form className="d-flex" role="shoppingCart">
+                  <button className="btn btn-outline-success" type="submit">Shopping Cart</button>
+                </form>
               </Link>
-             
+
             </div>
           </div>
         </nav>
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/records/:id" element={<RecordDetails />} />
-          <Route path= "/cart" element ={<Cart/>} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/search" element={<Search data={searchData} />} />
+          <Route path="/category/:genre" element={<Category />} />
         </Routes>
       </Router>
     </>

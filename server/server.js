@@ -3,8 +3,8 @@ import { MongoClient, ObjectId } from 'mongodb';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import morgan from 'morgan';
+import session from 'express-session';
 
-// for test commit
 dotenv.config();
 
 const url = process.env.MONGO_DB_URL;
@@ -20,7 +20,13 @@ app.use(morgan('tiny')); // Middleware for logging, making sure routes are being
 
 // Middleware to parse JSON bodies
 app.use(express.json());
-
+app.use(session({
+    secret: 'breaking_records_key',
+    resave: false,
+    saveUninitialized: true,
+    // cookie: true
+}));
+let cart = [];
 app.get('/records', async (req, res) => {
     try {
         const collection = db.collection('records');
@@ -46,6 +52,7 @@ app.get('/records/:id', async (req, res) => {
 
 app.get('/search/:genre', async (req, res) => {
     try {
+        console.log('in genre')
         const { genre } = req.params;
         const collection = db.collection('records');
         const matching_records = await collection.find({ "genre": genre.charAt(0).toUpperCase() + genre.slice(1) }).toArray();
@@ -60,6 +67,7 @@ app.post('/search', async (req, res) => {
     // Searches based on user input matching album_name or band_name.
     // ex. http://localhost:3000/search?q=Hello+World
     try {
+        console.log('hit search route')
         const search_params = req.query.q;
         const collection = db.collection('records');
         const matching_records = await collection.find(
@@ -78,9 +86,12 @@ app.post('/search', async (req, res) => {
 
 app.get('/cart', async (req, res) => {
     try {
-        const collection = db.collection('orders');
-        const allOrders = await collection.find({}).toArray();
-        res.status(200).json(allOrders);
+        if (!req.session.shopping_cart) {
+            req.session.shopping_cart = [];
+        }
+
+        // res.status(200).json(req.session.shopping_cart)
+        res.send(cart);
     } catch (err) {
         console.error("Error:", err);
         res.status(500).send("Oops! Error in grabbing data");
@@ -89,66 +100,61 @@ app.get('/cart', async (req, res) => {
 
 app.post('/cart/add', async (req, res) => {
     try {
-       const record = req.body; 
-       const collection = db.collection('orders');
-       const result = await collection.insertOne(record);
-       res.status(201).send(`{"_id":"${result.insertedId}"}`);
-    } catch (err) { 
+        if (!req.session.shopping_cart) {
+            req.session.shopping_cart = [];
+        }
+
+        req.session.shopping_cart.push(req.body);
+        cart.push(req.body);
+        res.status(201).send(cart);
+        console.log(req.session.shopping_cart);
+    } catch (err) {
         console.error('Error:', err);
         res.status(500).send('Error in adding record!');
     }
 });
 
-// app.delete('/cart/delete/:id', async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         const collection = db.collection('orders')
-//         console.log('Deleting record with ID:', id);
-//         const result = await collection.deleteOne({_id: new ObjectId(id)});
-//         if (result.deletedCount === 1) { 
-//             res.status(200).send(`Successfully deleted record with ID: ${id}`);
-//         }
-//         else { 
-//             res.status(404).send(`Could not find record with ID: ${id}`);
-//         }
-//         res.status(200).send('record deleted successfully');
-//     } catch (err) {
-//         console.error('Error:', err);
-//         res.status(500).send('Hmm, something doesn\'t smell right... Error deleting sock');
-//     }
-// });
+app.delete('/cart/delete', async (req, res) => {
+    try {
+        // req.session.shopping_cart = req.session.shopping_cart.filter(product  => JSON.stringify(product) !== JSON.stringify(req.body))
+        cart = cart.filter(product  => JSON.stringify(product) !== JSON.stringify(req.body))
+        // res.status(200).json(req.session.shopping_cart);
+        res.status(200).send(cart);
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('Could not delete record from shopping cart');
+    }
+});
 
-// app.post("/checkout/:id", async (req, res) => {
-//     // From documentation: 
-//     // When the user is finished shopping, the checkout
-//     // view will show them all the products in their cart,
-//     // an order total, and a place for them to put their
-//     // payment and shipping info. When they checkout, their cart
-//     // is cleared, and the order is saved to the database.
+app.post('/cart/checkout', async (req, res) => {
+    try {
+        const { name, email, address, city, state, zip, cardNumber, expirationDate, cvv } = req.body;
+        const collection = db.collection('orders');
+        
+        const order_document = {
+            name,
+            email, 
+            address,
+            city,
+            state,
+            zip,
+            cardNumber,
+            expirationDate,
+            cvv,
+            shopping_cart: cart
+        }
 
+        cart = [];
+        await collection.insertOne(order_document).then(() => { 
+            req.session.shopping_cart = [];
+        });
 
-//     // In request body, take in list of products from cart, order total (accumulated)
-//     // and user input for payment info(?) and shipping information.
-//     try {
-//         const {name, address} = req.body;
-//         const collection = db.collection('orders');
-//         const result = await collection.updateOne(
-//             {_id: id},
-//             {$set: {name, address}}
-//         );
-
-//         console.log(new ObjectId(Number(id)))
-//         if (result.modifiedCount == 0) { 
-//             res.status(500).send('Could not add order to database!')
-//         }
-//         else {
-//             res.status(201).send(`{"_id": "${result.upsertedId}"}`);
-//         }
-//     } catch (err) { 
-//         console.error('Error:', err);
-//         res.status(500).send('Error in adding order!');
-//     }
-// });
+        res.status(201).send('Sent order to MongoDB database!')
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('Error in adding record!');
+    }
+});
 
 ////
 app.listen(PORT, () => {
