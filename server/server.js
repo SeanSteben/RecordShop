@@ -23,9 +23,10 @@ app.use(express.json());
 app.use(session({
     secret: 'breaking_records_key',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    // cookie: true
 }));
-
+let cart = [];
 app.get('/records', async (req, res) => {
     try {
         const collection = db.collection('records');
@@ -51,6 +52,7 @@ app.get('/records/:id', async (req, res) => {
 
 app.get('/search/:genre', async (req, res) => {
     try {
+        console.log('in genre')
         const { genre } = req.params;
         const collection = db.collection('records');
         const matching_records = await collection.find({ "genre": genre.charAt(0).toUpperCase() + genre.slice(1) }).toArray();
@@ -65,6 +67,7 @@ app.post('/search', async (req, res) => {
     // Searches based on user input matching album_name or band_name.
     // ex. http://localhost:3000/search?q=Hello+World
     try {
+        console.log('hit search route')
         const search_params = req.query.q;
         const collection = db.collection('records');
         const matching_records = await collection.find(
@@ -87,7 +90,8 @@ app.get('/cart', async (req, res) => {
             req.session.shopping_cart = [];
         }
 
-        res.status(200).json(req.session.shopping_cart)
+        // res.status(200).json(req.session.shopping_cart)
+        res.send(cart);
     } catch (err) {
         console.error("Error:", err);
         res.status(500).send("Oops! Error in grabbing data");
@@ -101,8 +105,9 @@ app.post('/cart/add', async (req, res) => {
         }
 
         req.session.shopping_cart.push(req.body);
-
-        res.status(201).send(`Successfully added product to shopping cart!`);
+        cart.push(req.body);
+        res.status(201).send(cart);
+        console.log(req.session.shopping_cart);
     } catch (err) {
         console.error('Error:', err);
         res.status(500).send('Error in adding record!');
@@ -111,8 +116,10 @@ app.post('/cart/add', async (req, res) => {
 
 app.delete('/cart/delete', async (req, res) => {
     try {
-        req.session.shopping_cart = req.session.shopping_cart.filter(product  => JSON.stringify(product) !== JSON.stringify(req.body))
-        res.status(200).send('record deleted successfully from shopping cart!');
+        // req.session.shopping_cart = req.session.shopping_cart.filter(product  => JSON.stringify(product) !== JSON.stringify(req.body))
+        cart = cart.filter(product  => JSON.stringify(product) !== JSON.stringify(req.body))
+        // res.status(200).json(req.session.shopping_cart);
+        res.status(200).send(cart);
     } catch (err) {
         console.error('Error:', err);
         res.status(500).send('Could not delete record from shopping cart');
@@ -134,9 +141,10 @@ app.post('/cart/checkout', async (req, res) => {
             cardNumber,
             expirationDate,
             cvv,
-            shopping_cart: req.session.shopping_cart
+            shopping_cart: cart
         }
 
+        cart = [];
         await collection.insertOne(order_document).then(() => { 
             req.session.shopping_cart = [];
         });

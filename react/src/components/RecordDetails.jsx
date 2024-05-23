@@ -24,10 +24,10 @@ export default function RecordDetails(props) {
         };
         fetchData();
     }, []);
-    const addToCart = (itemId) => {
+    const addToCart = (record) => {
         fetch(`http://localhost:3000/cart/add`, {
             method: "POST",
-            body: JSON.stringify({ itemId }),
+            body: JSON.stringify(record),
             headers: {
                 "Content-Type": "application/json",
             },
@@ -35,15 +35,13 @@ export default function RecordDetails(props) {
             .then((response) => response.json())
             .then((data) => {
                 // Handle the response data
-               
+                alert('Added to cart!');
                 console.log(data);
             })
             .catch((error) => {
                 // Handle any errors
                 console.error(error);
             });
-
-
     }
 
     return (
@@ -61,7 +59,7 @@ export default function RecordDetails(props) {
                         <p className="card-text">Record Label: {record.record_label}</p>
                         <p className="card-text">Duration: {record.duration}</p>
                         <div className="d-flex">
-                            <button className="btn btn-primary" onClick={addToCart(record)}>Add to cart!</button> 
+                            <button className="btn btn-primary" onClick={() => addToCart(record)}>Add to cart!</button> 
                             <h5 style={{paddingLeft: "10px"}}>${record.price}</h5>
                         </div>
                     </div>
