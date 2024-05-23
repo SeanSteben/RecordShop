@@ -58,13 +58,13 @@ const Search = (props) => {
             <button className="btn btn-outline-success" type="submit">Search</button>
         </form>
 
-        {/* <form className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+        <form className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
               {recordData.map((record) => (
                 <Record key={record._id} recordData={record} />
               ))}
               
-            </form> */}
-            
+            </form>
+
         </>
         
     );
