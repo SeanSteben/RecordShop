@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import recordImage from '../assets/record.svg'
+import recordImage from '../assets/record.png'
 import {
     useParams,
     Link
@@ -31,7 +31,7 @@ export default function RecordDetails(props) {
     }
 
     return (
-        <div className="card mb-3" style={{maxWidth: "1000px"}}>
+        <div className="card mb-3" style={{maxWidth: "800px"}}>
             <div className="row g-0">
                 <div className="col-md-4">
                     <img src={recordImage} className="img-fluid" />
@@ -39,13 +39,15 @@ export default function RecordDetails(props) {
                 <div className="col-md-8">
                     <div class="card-body">
                         <h3 className="card-title" style={{textTransform: "uppercase"}}><strong>{record.album_name}</strong></h3>
-                        <p className="card-text"><strong>{record.band_name}</strong></p>
+                        <h4 className="card-text">{record.band_name}</h4>
                         <p className="card-text"><small className="text-muted">{record.release_date}</small></p>
                         <p className="card-text">Genre: {record.genre}</p>
                         <p className="card-text">Record Label: {record.record_label}</p>
                         <p className="card-text">Duration: {record.duration}</p>
-                        <button className="btn btn-primary" onClick={addToCart}>Add to cart!</button> 
-                        <h5>{record.price}</h5>
+                        <div className="d-flex">
+                            <button className="btn btn-primary" onClick={addToCart}>Add to cart!</button> 
+                            <h5 style={{paddingLeft: "10px"}}>${record.price}</h5>
+                        </div>
                     </div>
                 </div>
             </div>
