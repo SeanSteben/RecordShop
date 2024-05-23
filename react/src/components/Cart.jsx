@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 const Cart = () => {
     const [cart, setCart] = useState([])
     const [prediction, setPrediction] = useState(null);
+    const [predictedAlbum,setPredictedAlbum] = useState(null);
     let total = 0.00
     useEffect(() => {
         const fetchData = async () => {
@@ -59,7 +60,8 @@ const Cart = () => {
                 throw new Error('Prediction request failed!!!')
             }
             const jsonResponse = await response.json();
-            setPrediction(jsonResponse[0]); //might have to be changed
+            setPrediction(jsonResponse[0]); 
+            setPredictedAlbum(record.album_name);
         } catch(error){
             console.error('Something went WRONG:', error)
         }
@@ -93,12 +95,12 @@ const Cart = () => {
                 {cart.forEach(cartItem => total += parseFloat(cartItem.price))}
                 <div>Total Price: ${total.toFixed(2)}</div>
             </div>
-            {/* {prediction && ( */}
+            {prediction && (
                 <div className = "alert alert-info">
-                    Prediction: {prediction}
+                    Based on interest in the {predictedAlbum} album, we recommend the {prediction} album
                 </div>
+             )} 
             <Link to={"/checkout/"+total}>
-            {/* )} */}
                 <button className="btn btn-outline-success" type="submit" >Proceed to Checkout</button>
             </Link>
         </>
