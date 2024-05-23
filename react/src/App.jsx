@@ -8,11 +8,11 @@ import Record from "./components/Record"
 import Search from "./components/Search"
 import Featured from './components/Featured';
 import RecordDetails from "./components/RecordDetails"
+// import Home from "./components/Home"
 import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Link
 } from "react-router-dom";
 
 let filtered_records = [];
@@ -71,7 +71,7 @@ function App() {
     <>
     <Router>
       <Routes>
-        <Route exact path="/" element={<Home/>}/>
+        {/* <Route exact path="/" element={<Home/>}/> */}
         <Route path="/records/:id" element={<RecordDetails/>}/>
       </Routes>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
