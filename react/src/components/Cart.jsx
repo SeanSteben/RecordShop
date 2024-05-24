@@ -69,12 +69,14 @@ const Cart = () => {
 
     return (
         <>
-            <h2>Shopping Cart</h2>
+            <br/>
+            <h2>🛒 Shopping Cart</h2>
+            <br/>
             <div className="list-group">
                 {cart.map(cartItem => (
                     <div key={cartItem._id} className="list-group-item list-group-item-action flex-column align-items-start" style={{backgroundColor: "#f0f0f0"}}>
                         <div className="d-flex w-100 justify-content-between">
-                            <h5 className="mb-1">{cartItem.album_name}</h5>
+                            <h5 className="mb-1">♫ {cartItem.album_name}</h5>
                             <button type="button" className="btn btn-outline-danger" onClick={() => removeFromCart(cartItem)}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
@@ -89,7 +91,7 @@ const Cart = () => {
                         <p className="mb-1">Artist: {cartItem.band_name}</p>
                         <p className="mb-1">Genre: {cartItem.genre}</p>
                         <p className="mb-1">Price: {cartItem.price}</p>
-                        <small className="text-muted">{cartItem.is_new ? "New release!" : ""}.</small>
+                        <small className="text-muted text-danger" style={{fontStyle: 'italic'}}>{cartItem.is_new ? "New release!" : ""}</small>
                     </div>
                 ))}
                 {cart.forEach(cartItem => total += parseFloat(cartItem.price))}

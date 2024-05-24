@@ -22,9 +22,9 @@ const Record = (props) => {
 
 
         <div className="col mb-5">
-            <div className="card h-100" style={{ height: '10px', width: '250px', backgroundColor: "#f0f0f0" }}>
-                {props?.recordData.is_new && (<div className="badge bg-dark text-white position-absolute" style={{ top: "0.5rem", right: "0.5rem" }}>New Release!</div>)}
-                <img className="card-img-top" src={recordImage} alt="..." style={{ scale: "50%" }} />
+            <div className="card h-100 shadow" style={{width: '250px', backgroundColor: "#f0f0f0" }}>
+                {props?.recordData.is_new && (<div className="badge bg-danger text-white position-absolute" style={{ top: "0.6rem", right: "0.6rem" }}>New Release!</div>)}
+                <img className="card-img-top" src={recordImage} style={{ scale: "50%" }} />
                 <div className="card-body p-4">
                     <div className="text-center">
                         <h5 className="fw-bolder">{props.recordData.album_name}</h5>
