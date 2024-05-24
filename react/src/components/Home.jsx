@@ -32,10 +32,14 @@ const Home = (props) => {
 
   return (
     <>
-      <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      <main role="main" className="col-12 no-padding" style={{width:'100%'}}>
         <div className="container-fluid">
+        <header class="py-4" style={{backgroundImage: "linear-gradient( 135deg, #FFA6B7 10%, #1E2AD2 100%)", marginBottom: "40px"}}>
           <Featured data={filtered_records} />
+          </header>
+          <hr class="shadow"/>
           <div className="row">
+          <h3 class="fw-bolder" style={{marginBottom: "30px"}}>Our Catalog</h3>
             <div className="card-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
               {recordData.map((record) => (
                 <Record key={record._id} recordData={record} />
