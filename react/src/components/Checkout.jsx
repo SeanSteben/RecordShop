@@ -59,7 +59,7 @@ const Checkout = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      alert('Transaction has been saved to orders database!')
+      alert('Your order has been confirmed! Thank you for shopping with us.')
     } catch (err) {
       console.log('Error: ', err)
     }
