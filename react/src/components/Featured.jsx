@@ -5,7 +5,7 @@ const Featured = (props) => {
         <>
             {JSON.stringify()}
             <h5>Just added to Record Store</h5>
-            <div className="card-container d-flex flex-row justify-content-start" style={{ gap: "20px", padding: "20px" }}>
+            <div className="card-container d-flex flex-row justify-content-start"  style={{ gap: "20px", padding: "20px" }}>
                 {
                     
                     props.data.map((data) => (

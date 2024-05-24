@@ -27,6 +27,7 @@ function App() {
   return (
     <>
       <Router>
+        
         <nav className="navbar navbar-expand-lg bg-dark border-bottom bg-body-tertiary" data-bs-theme="dark">
             <div className="container-fluid">
               <a className="navbar-brand" href="#">Record Breakers</a>
@@ -82,6 +83,7 @@ function App() {
             <Route path="/category/:genre" element={<Category />} />
             <Route path="/checkout/:total" element={<Checkout />} />
           </Routes>
+          
       </Router>
     </>
   )
