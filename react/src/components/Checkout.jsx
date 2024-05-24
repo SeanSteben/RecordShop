@@ -41,8 +41,6 @@ const Checkout = () => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-
-            const data = await response.json();
             alert('Transaction has been saved to orders database!')
         } catch(err) { 
             console.log('Error: ', err)

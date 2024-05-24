@@ -72,7 +72,7 @@ const Cart = () => {
             <h2>Shopping Cart</h2>
             <div className="list-group">
                 {cart.map(cartItem => (
-                    <div key={cartItem._id} className="list-group-item list-group-item-action flex-column align-items-start">
+                    <div key={cartItem._id} className="list-group-item list-group-item-action flex-column align-items-start" style={{backgroundColor: "#f0f0f0"}}>
                         <div className="d-flex w-100 justify-content-between">
                             <h5 className="mb-1">{cartItem.album_name}</h5>
                             <button type="button" className="btn btn-outline-danger" onClick={() => removeFromCart(cartItem)}>
