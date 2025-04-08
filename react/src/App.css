@@ -1,0 +1,22 @@
+root {
+  /* max-width: 1280px; */
+  margin: 0 auto;
+  /* background-color: #f0f0f0; */
+  /* background-color: lightcoral; */
+  background-color: #E6DADA;  /* fallback for old browsers */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+* { 
+  font-family: 'Trebuchet MS';
+}
+
+.card {
+  padding: 1em;
+}
+
+.navbar { 
+  width: 100%;
+}

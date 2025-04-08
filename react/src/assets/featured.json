@@ -1,0 +1,25 @@
+[{
+    "id": 114,
+    "band_name": "Switch of the Underground",
+    "album_name": "Curiosity",
+    "genre": "Blues",
+    "release_date": "1991-08-16",
+    "record_label": "Smith, Arias and Schneider",
+    "duration": "71:53",
+    "price": "18.00",
+    "numSold": 77,
+    "is_new": true
+  },
+  {
+    "id": 115,
+    "band_name": "Cinematic Gossip",
+    "album_name": "Tongue and cheeks",
+    "genre": "Pop",
+    "release_date": "2018-12-29",
+    "record_label": "Miranda and Sons",
+    "duration": "81:58",
+    "price": "16.00",
+    "numSold": 85,
+    "is_new": true
+  }
+]

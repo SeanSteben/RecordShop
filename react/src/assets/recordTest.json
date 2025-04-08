@@ -1,0 +1,49 @@
+[{
+    "id": 120,
+    "band_name": "Daydream Diary",
+    "album_name": "Gods advocate",
+    "genre": "Classical",
+    "release_date": "2002-09-24",
+    "record_label": "Griffith-Cunningham",
+    "duration": "72:07",
+    "price": "24.00",
+    "numSold": 47,
+    "is_new": false
+  },
+  {
+    "id": 121,
+    "band_name": "Simple Nemesis",
+    "album_name": "Beggars and thieves",
+    "genre": "Classical",
+    "release_date": "2004-03-06",
+    "record_label": "Smith Ltd",
+    "duration": "62:04",
+    "price": "18.00",
+    "numSold": 94,
+    "is_new": true
+  },
+  {
+    "id": 122,
+    "band_name": "Wraith",
+    "album_name": "Dark matters",
+    "genre": "Jazz",
+    "release_date": "1976-03-23",
+    "record_label": "Burch-Waller",
+    "duration": "43:32",
+    "price": "21.00",
+    "numSold": 99,
+    "is_new": false
+  },
+  {
+    "id": 123,
+    "band_name": "Dilemma",
+    "album_name": "Rocket surgery",
+    "genre": "Pop",
+    "release_date": "1972-11-16",
+    "record_label": "Smith-Li",
+    "duration": "49:21",
+    "price": "20.00",
+    "numSold": 47,
+    "is_new": false
+  }
+]
